@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Care Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffeaf4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff70a6;
+            color: #fff;
+            text-align: center;
+            padding: 20px 10px;
+            border-bottom: 4px solid #e65d91;
+        }
+        h1 {
+            margin: 0;
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .links {
+            margin: 20px 0;
+        }
+        a {
+            display: inline-block;
+            background-color: #ff70a6;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        a:hover {
+            background-color: #e65d91;
+        }
+        .image-container {
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .image-container img {
+            width: 100%;
+            border-radius: 10px;
+            border: 4px solid #ff9ecf;
+        }
+        footer {
+            margin-top: 20px;
+            background-color: #ff85b1;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Skin Care Products</h1>
+    </header>
+    <div class="content">
+        <p>Enhance your skincare routine with us!</p>
+        <div class="links">
+            <!-- Form sayfasına yönlendiren link -->
+            <a href="/form">Go to Form Page</a>
+            <!-- Barcode sayfasına yönlendiren link -->
+            <a href="/proje">Go to Barcode Page</a>
+        </div>
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='indir.jpg') }}" alt="Skincare Products">
+
+
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Skin Care Inc. | All rights reserved.
+    </footer>
+</body>
+</html>

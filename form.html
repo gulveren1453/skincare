@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Care Product Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffeaf4;
+            margin: 0;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ff9ecf;
+        }
+        h1 {
+            text-align: center;
+            color: #d63384;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input:focus, select:focus {
+            border-color: #ff85b1;
+            outline: none;
+        }
+        button {
+            background-color: #ff70a6;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e65d91;
+        }
+        .info-text {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Skin Care Product Form</h1>
+        <form action="/form" method="POST">
+
+            <!-- User Information -->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="surname">Your Surname:</label>
+            <input type="text" id="surname" name="surname" placeholder="Enter your surname" required>
+
+            <label for="age">Your Age:</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+
+            <!-- Skin Type Selection -->
+            <label for="skin-type">Your Skin Type:</label>
+            <div class="info-text">Please select your skin type based on the descriptions below:</div>
+            <select id="skin-type" name="skin-type" required>
+                <option value="">Select your skin type...</option>
+                <option value="dry">Dry Skin (Feels tight and may have flakiness.)</option>
+                <option value="oily">Oily Skin (Looks shiny and prone to acne.)</option>
+                <option value="combination">Combination Skin (T-zone is oily, cheeks are dry or normal.)</option>
+                <option value="sensitive">Sensitive Skin (Prone to redness, itching, or irritation.)</option>
+                <option value="normal">Normal Skin (Balanced, neither too dry nor too oily.)</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+

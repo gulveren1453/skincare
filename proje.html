@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Product Analysis System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .scanner-section, #scanner {
+            margin-top: 20px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+        }
+        #scanner {
+            width: 50%;
+            height: 100px;
+            margin: 20px auto;
+            background-color: #ccc;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        video {
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Skin Product Analysis System</h1>
+
+    <!-- Allergens Input -->
+    <div class="scanner-section">
+        <input type="text" id="allergens" placeholder="Enter allergens (comma-separated)">
+        <button onclick="setAllergens()">Save Allergens</button>
+    </div>
+
+    <!-- Product Barcode Input -->
+    <div class="scanner-section">
+        <input type="text" id="barcode1" placeholder="Enter the barcode of the first product">
+        <button onclick="scanBarcode(1)">Scan Product</button>
+    </div>
+    <div class="scanner-section">
+        <input type="text" id="barcode2" placeholder="Enter the barcode of the second product">
+        <button onclick="scanBarcode(2)">Scan Product</button>
+    </div>
+
+    <!-- Irritation Evaluation Button -->
+    <button onclick="evaluateBothProducts()">Evaluate Both Products</button>
+
+    <!-- Barcode Scanner Section -->
+    <button onclick="startScanner()">Scan Barcode with Camera</button>
+    <div id="scanner"></div>
+
+    <!-- Results -->
+    <div id="results"></div>
+
+    <script>
+        const knownBarcodes = {
+            "4005900567932": {
+                productName: "Nivea Lip Balm",
+                ingredients: ["Hydrogenated Polyisobutene", "Cera Alba (Beeswax)", "Caprylic/Capric Triglyceride", "Olea Europaea (Olive) Fruit Oil", "Sodium Hyaluronate"]
+            },
+            "4005808473908": {
+                productName: "Nivea Sun",
+                ingredients: ["Aqua (Water)", "C12-15 Alkyl Benzoate", "Glyceryl Stearate SE", "Cetearyl Alcohol", "Butyl Methoxydibenzoylmethane"]
+            },
+            "3574661648316": {
+                productName: "Neutrogena Lip Care Cream",
+                ingredients: ["Ricinus Communis Seed Oil", "Paraffin", "Cera Alba", "Ethylhexyl Methoxycinnamate"]
+            },
+            "8690506520083": {
+                productName: "Arko Nem Basic Care",
+                ingredients: ["Ricinus Communis Seed Oil", "Paraffin", "Cera Alba", "Ethylhexyl Methoxycinnamate"]
+            },
+            "8682742378382": {
+                productName: "Licape Micellar Cleansing And Oil Control Tonic",
+                ingredients: ["Aqua", "Water", "Polyglyceryl-4 Laurate/Sebacate", "Polyglyceryl-6 Caprylate/Caprate", "Glycerin", "Hamamelis Virginiana Extract", "Chamomilla Recutita Flower Extract", "Phenoxyethanol", "Ethylhexylglycerin"]
+            },
+            "8682406153038": {
+                productName: "Wiwify Hydration Booster Water Based Moisturizing Cream",
+                ingredients: ["Aqua", "Caprylic/Capric Triglyceride", "Cetearyl Alcohol", "Glyceryl Stearate", "Propylene Glycol", "Dimethicone", "Glycerin", "Triticum Vulgare Germ Oil", "Caprylyl Glycol", "Panthenol", "Phragmites Karka Extract", "Adansonia Digitata Seed Oil", "Lavandula Angustifolia Oil", "Phenoxyethanol", "Hypericum Perforatum Oil", "Simmondsia Chinensis Seed Oil", "Poria Cocos Extract", "Acacia Seyal Gum Extract", "Caprylhydroxamic Acid", "Ceteareth-12", "Sodium Hyaluronate", "Tocopheryl Acetate", "Prunus Armeniaca Kernel Oil", "Ceteareth-20", "Ascorbyl Palmitate", "Tocopherol", "Ethylhexylglycerin"]
+            }
+        };
+
+        let userAllergens = [];
+        let product1 = null;
+        let product2 = null;
+
+        function setAllergens() {
+            const allergensInput = document.getElementById('allergens').value;
+            userAllergens = allergensInput.split(',').map(item => item.trim());
+            alert('Allergens saved!');
+        }
+
+        function scanBarcode(productNumber) {
+            const barcode = document.getElementById(`barcode${productNumber}`).value;
+            if (!barcode) {
+                alert(`Please enter the barcode for product ${productNumber}!`);
+                return;
+            }
+
+            if (knownBarcodes[barcode]) {
+                const product = knownBarcodes[barcode];
+                if (productNumber === 1) {
+                    product1 = product;
+                } else if (productNumber === 2) {
+                    product2 = product;
+                }
+                displaySingleProduct(product, productNumber);
+            } else {
+                alert('Barcode not found in our database.');
+            }
+        }
+
+        function displaySingleProduct(product, productNumber) {
+            const allergensInProduct = product.ingredients.filter(ingredient => userAllergens.includes(ingredient));
+            let resultMessage = `
+                <h3>Product ${productNumber}:</h3>
+                <p><strong>Name:</strong> ${product.productName}</p>
+                <p><strong>Ingredients:</strong> ${product.ingredients.join(', ')}</p>
+            `;
+
+            if (allergensInProduct.length > 0) {
+                resultMessage += `<p style="color: red;"><strong>This product contains ingredients you are allergic to.</strong></p>`;
+            } else {
+                resultMessage += `<p>This product does not contain allergens.</p>`;
+            }
+
+            document.getElementById('results').innerHTML += resultMessage;
+        }
+
+        function evaluateBothProducts() {
+            if (!product1 || !product2) {
+                alert('Please scan both products!');
+                return;
+            }
+
+            const combinedIngredients = [...product1.ingredients, ...product2.ingredients];
+            const allergensInProducts = combinedIngredients.filter(ingredient => userAllergens.includes(ingredient));
+            const irritationIngredients = ["Sodium Lauryl Sulfate", "Fragrance", "Alcohol"];
+            const irritationOverlap = product1.ingredients.filter(ingredient => product2.ingredients.includes(ingredient) && irritationIngredients.includes(ingredient));
+
+            let resultMessage = `
+                <h2>Evaluation of Both Products:</h2>
+                <p><strong>Product 1:</strong> ${product1.productName}</p>
+                <p><strong>Product 2:</strong> ${product2.productName}</p>
+            `;
+
+            if (allergensInProducts.length > 0) {
+                resultMessage += `<p style="color: red;"><strong>These products contain ingredients you are allergic to.</strong></p>`;
+            } else {
+                resultMessage += `<p>No allergens detected in these products.</p>`;
+            }
+
+            if (irritationOverlap.length > 0) {
+                resultMessage += `<p><strong>Common irritants found in both products:</strong> ${irritationOverlap.join(', ')}</p>`;
+            } else {
+                resultMessage += `<p>No common irritants detected in these products.</p>`;
+            }
+
+            document.getElementById('results').innerHTML += resultMessage;
+        }
+
+        function startScanner() {
+            Quagga.init({
+                inputStream: {
+                    type: "LiveStream",
+                    target: document.querySelector('#scanner'),
+                    constraints: {
+                        width: 480,
+                        height: 320,
+                        facingMode: "environment"
+                    }
+                },
+                decoder: {
+                    readers: ["ean_reader"]
+                }
+            }, function (err) {
+                if (err) {
+                    console.error(err);
+                    alert("Scanner could not be started.");
+                    return;
+                }
+                Quagga.start();
+            });
+
+            Quagga.onDetected(function (data) {
+                const barcode = data.codeResult.code;
+                Quagga.stop();
+                document.getElementById('barcode1').value = barcode;
+                scanBarcode(1);
+            });
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,51 @@
+ Name: g�lveren, Surname: can, Age: 20, Skin Type: combination
+Name: g�lveren, Surname: can, Age: 20, Skin Type: combination
+Name: g�lveren, Surname: can, Age: 20, Skin Type: combination
+Name: hayrunnisa, Surname: kaya, Age: 15, Skin Type: combination
+Name: kerem, Surname: canpolat , Age: 26, Skin Type: dry
+Name: Esra, Surname: Keskin , Age: 21, Skin Type: oily
+Name: Fatoş
+Surname: can
+Age: 17
+Skin Type: oily
+----------------------------------------
+Name: Songül 
+Surname: Yılmaz
+Age: 21
+Skin Type: dry
+----------------------------------------
+Name: çetin
+Surname: canpolat 
+Age: 40
+Skin Type: dry
+----------------------------------------
+Name: yusuf
+Surname: canpolat 
+Age: 18
+Skin Type: combination
+----------------------------------------
+Name: Meryem
+Surname: kaya
+Age: 25
+Skin Type: combination
+----------------------------------------
+Name: gülveren
+Surname: canpolat 
+Age: 21
+Skin Type: oily
+----------------------------------------
+Name: esra
+Surname: keskin
+Age: 22
+Skin Type: combination
+----------------------------------------
+Name: esra
+Surname: keskin
+Age: 22
+Skin Type: combination
+----------------------------------------
+Name: esra
+Surname: keskin
+Age: 22
+Skin Type: combination
+----------------------------------------
